@@ -14,7 +14,7 @@ namespace API.Models
         [MinLength(6)]
         [MaxLength(25)]
         public string Name { get; set; }
-        [JsonIgnore]
+        
         public Supplier Supplier { get; set; }
 
         [ForeignKey("Supplier")]

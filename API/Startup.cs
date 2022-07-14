@@ -35,6 +35,7 @@ namespace API
             services.AddDbContext<MyContext>(options => options.UseSqlServer(Configuration.GetConnectionString("MCC67ConnectionString")));
             services.AddScoped<SupplierRepository>();
             services.AddScoped<ProductRepository>();
+            services.AddScoped<AccountRepository>();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo

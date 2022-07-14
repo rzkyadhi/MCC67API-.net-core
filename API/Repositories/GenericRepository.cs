@@ -16,11 +16,11 @@ namespace API.Repositories
             this.myContext = myContext;
         }
 
-        public List<TModel> Get()
+        /*public List<TModel> Get()
         {
             var data = myContext.Set<TModel>().ToList();
             return data;
-        }
+        }*/
 
         public TModel Get(int id)
         {

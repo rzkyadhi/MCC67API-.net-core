@@ -1,7 +1,10 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using API.Models;
+using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System;
+using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
 using System.Security.Claims;
 using System.Text;
 
@@ -33,8 +36,8 @@ namespace API.Services
                     new Claim(ClaimTypes.Email, email)
                 }),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature),
-                Issuer = _issuer,
-                Audience = _audience,
+                Issuer = email,
+                Audience = email,
                 Expires = DateTime.UtcNow.AddMinutes(double.Parse(_expDate)),
             };
 

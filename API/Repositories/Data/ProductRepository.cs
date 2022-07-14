@@ -15,10 +15,13 @@ namespace API.Repositories.Data
             this.myContext = myContext;
         }
 
-        public List<Product> GetJoin()
+        public List<Product> Get()
         {
-            var data = myContext.Product.Include("Supplier").ToList();
+            var data = myContext.Product
+                .Include(x => x.Supplier)
+                .ToList();
             return data;
         }
+        
     }
 }

@@ -20,7 +20,7 @@ namespace API.Base
         }
 
         // Get List of Data
-        [HttpGet]
+        /*[HttpGet]
         public ActionResult<List<TModel>> Get()
         {
             var result = repository.Get();
@@ -36,7 +36,7 @@ namespace API.Base
                 status = 404,
                 message = "NOT FOUND"
             });
-        }
+        }*/
 
         // Get By an Id Returning Model
         [HttpGet("{id}")]

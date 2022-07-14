@@ -6,7 +6,7 @@ namespace API.Repositories.Interface
         where TModel : class
     {
         // Get List of Data or Get All
-        List<TModel> Get();
+        /*List<TModel> Get();*/
 
         // Get By Id
         TModel Get(int id);
