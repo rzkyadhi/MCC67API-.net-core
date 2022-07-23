@@ -9,7 +9,7 @@ using System.Collections.Generic;
 namespace API.Controllers
 {
     [Route("api/[controller]")]
-    /*[Authorize(Roles = "Staff")]*/
+    [Authorize(Roles = "Staff")]
     [ApiController]
     public class SupplierController : BaseController<Supplier, SupplierRepository>
     {
