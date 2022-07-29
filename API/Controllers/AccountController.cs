@@ -29,47 +29,15 @@ namespace API.Controllers
         }
 
         [AllowAnonymous]
-        [HttpPost]
+        [HttpPost("login")]
         public ActionResult Login(User user)
         {
             var result = accountRepository.Post(user.Email, user.Password);
-            /*var roles = new List<string>();
-            foreach (var role in result.Role)
-            {
-                roles.Add(role.Name);
-            }
-            var jwt = new JwtService(config);
-            var token = jwt.GenerateSecurityToken(result.Email, roles.ToString());
-
-            return Ok(new
-            {
-                status = 200,
-                message = "Account Validated",
-                data = result,
-                token = token,
-            });*/
-
-            // cara pintas
-            var claims = new List<Claim>();
+            var token = new JwtService(config);
 
             if (result != null)
             {
-                claims.Add(new Claim("Email", result.Email));
-                foreach (var item in result.Role)
-                {
-                    claims.Add(new Claim("roles", item.Name));
-                }
-                var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["JwtConfig:secret"]));
-                var signIn = new SigningCredentials(key, SecurityAlgorithms.HmacSha256Signature);
-                var token = new
-                    JwtSecurityToken(
-                    config["JwtConfig:Issuer"],
-                    config["JwtConfig:Audience"],
-                    claims,
-                    expires: DateTime.UtcNow.AddMinutes(60),
-                    signingCredentials: signIn
-                    );
-                var idToken = new JwtSecurityTokenHandler().WriteToken(token);
+                var idToken = token.GenerateSecurityToken(result);
 
                 return Ok(new
                 {

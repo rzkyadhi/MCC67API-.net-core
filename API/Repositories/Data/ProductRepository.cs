@@ -22,6 +22,5 @@ namespace API.Repositories.Data
                 .ToList();
             return data;
         }
-        
     }
 }

@@ -40,7 +40,7 @@ namespace API.Base
 
         // Get By an Id Returning Model
         [HttpGet("{id}")]
-        public ActionResult<TModel> Get(int id)
+        public virtual ActionResult<TModel> Get(int id)
         {
             var result = repository.Get(id);
             if (result != null)

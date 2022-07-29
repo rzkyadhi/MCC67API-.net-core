@@ -21,12 +21,12 @@ namespace API.Controllers
             this.user = user;
         }
 
-        [HttpGet]
+        /*[HttpGet]
         public string GetRandomToken(string email = "rizky.nugroho@mii.co.id")
         {
             var jwt = new JwtService(config);
             var token = jwt.GenerateSecurityToken(email); ;
             return token;
-        }
+        }*/
     }
 }

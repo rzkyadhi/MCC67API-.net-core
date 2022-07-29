@@ -1,4 +1,5 @@
 ﻿using API.Models;
+using API.ViewModels;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System;
@@ -25,24 +26,23 @@ namespace API.Services
             _expDate = config.GetSection("JwtConfig").GetSection("expirationInMinutes").Value;
         }
 
-        public string GenerateSecurityToken(string email)
+        public string GenerateSecurityToken(Login login)
         {
-            var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.ASCII.GetBytes(_secret);
-            var tokenDescriptor = new SecurityTokenDescriptor
-            {
-                Subject = new ClaimsIdentity(new[]
-                {
-                    new Claim(ClaimTypes.Email, email)
-                }),
-                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature),
-                Issuer = email,
-                Audience = email,
-                Expires = DateTime.UtcNow.AddMinutes(double.Parse(_expDate)),
-            };
-
-            var token = tokenHandler.CreateToken(tokenDescriptor);
-            return tokenHandler.WriteToken(token);
+            var claims = new List<Claim>();
+            claims.Add(new Claim("Email", login.Email));
+            foreach (var item in login.Role) claims.Add(new Claim("roles", item.Name));
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_secret));
+            var signIn = new SigningCredentials(key, SecurityAlgorithms.HmacSha256Signature);
+            var token = new
+                JwtSecurityToken(
+                _issuer,
+                _audience,
+                claims,
+                expires: DateTime.UtcNow.AddMinutes(60),
+                signingCredentials: signIn
+                );
+            var idToken = new JwtSecurityTokenHandler().WriteToken(token);
+            return idToken;
         }
     }
 }
