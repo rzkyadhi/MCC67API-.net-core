@@ -12,7 +12,7 @@ using System.Linq;
 namespace API.Controllers
 {
     [Route("api/[controller]")]
-    /*[Authorize(Roles = "Manager")]*/
+    [Authorize(Roles = "Manager")]
     [ApiController]
     public class ProductController : BaseController<Product, ProductRepository>
     {

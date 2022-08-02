@@ -57,16 +57,36 @@ namespace API.Base
             });
         }
 
+        /// <summary>
+        /// Create an item.
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///     POST /Product
+        ///     {
+        ///        "name": "Item1",
+        ///        "supplierId": 1
+        ///     }
+        ///
+        /// </remarks>
+        /// <param name="model"></param>
+        /// <returns>A newly created TodoItem</returns>
+        /// <response code="201">Returns the newly created item</response>
+        /// <response code="400">If the item is null</response>
         // Post Method
         [HttpPost]
+        [Produces("application/json")]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public ActionResult<int> Post(TModel model)
         {
             var data = repository.Post(model);
             if (data > 0)
-                return Ok(new
+                return Created(nameof(Get), new
                 {
                     status = 201,
-                    message = "CREATED"
+                    message = "CREATED",
                 });
             return BadRequest(new
             {
