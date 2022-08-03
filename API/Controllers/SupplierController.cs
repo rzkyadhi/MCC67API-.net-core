@@ -20,6 +20,12 @@ namespace API.Controllers
             this.repository = repository;
         }
 
+        /// <summary>
+        /// Get All Supplier List.
+        /// </summary>
+        /// <returns>A list of product</returns>
+        /// <response code="200">Returns the list of supplier</response>
+        /// <response code="400">If the supplier is null</response>
         [HttpGet]
         public ActionResult<List<Supplier>> Get()
         {

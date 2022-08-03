@@ -28,6 +28,12 @@ namespace API.Controllers
             this.config = config;
         }
 
+        /// <summary>
+        /// Login to API.
+        /// </summary>
+        /// <returns>A data and token</returns>
+        /// <response code="200">Returns the data and token</response>
+        /// <response code="400">If the login is not authenticated</response>
         [AllowAnonymous]
         [HttpPost("login")]
         public ActionResult Login(User user)
